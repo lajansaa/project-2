@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+header {
+  position: fixed;
+  width: 100vw;
+  height: 100px;
+  line-height: 100px;
+  top: 0;
+  background-color: #68B0AB; 
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo, .search, .sign-in {
+  display: inline-block;
+  color: #FFF;
+}
+
+.logo {
+  font-family: 'Euphoria Script', cursive;
+  font-size: 3rem;
+}
+
+.align-right {
+  display: inline-block;
+}
+
+aside {
+  position: fixed;
+  height: 100vh;
+  top: 100px;
+  width: 100px;
+  padding: 20px;
+  background-color: #B7D5D4;
+}
+
+.side-link {
+  margin: 50px 0;
+}
+
+footer {
+  position: fixed;
+  width: 100vw;
+  height: 50px;
+  bottom: 0;
+  background-color: #68B0AB; 
+  padding: 0 10px;
+}
