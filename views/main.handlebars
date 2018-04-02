@@ -5,6 +5,7 @@
   <link href="https://fonts.googleapis.com/css?family=Euphoria+Script" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/css/main.css">
   <title>QueryMe</title>
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
@@ -14,12 +15,16 @@
       <div class="sign-in">Sign In</div>
     </div>
   </header>
-  <aside>
-    <a class="side-link" href="#">Reports</a>
-    <a class="side-link" href="#">Favourites</a>
-    <a class="side-link" href="#">Admin</a>
-  </aside>
-  {{{body}}}
+  <div class="main-container">
+    <div class="navigation">
+      <p><a class="side-link" href="/categories">Reports</a></p>
+      <p><a class="side-link" href="#">Favourites</a></p>
+      <p><a class="side-link" href="#">Control Panel</a></p>
+    </div>
+    <div class="main-content">
+      {{{body}}}
+    </div>
+  </div>
   <footer>
     <p>&copy; 2018 QueryMe</p>
   </footer>
