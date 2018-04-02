@@ -28,13 +28,21 @@ header {
   display: inline-block;
 }
 
-aside {
-  position: fixed;
+.main-container {
+  margin-top: 100px;
+  padding: 0 50px 30px 0;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.navigation {
   height: 100vh;
-  top: 100px;
-  width: 100px;
   padding: 20px;
   background-color: #B7D5D4;
+}
+
+.main-content {
+  padding: 20px;
 }
 
 .side-link {

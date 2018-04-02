@@ -29,7 +29,7 @@ app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
 // import routes
-// require('./routes')(app, db);
+require('./routes')(app, db);
 
 // home page
 app.get('/', (request, response) => {
