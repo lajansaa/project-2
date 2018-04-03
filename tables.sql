@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- create query_reports table
-CREATE TABLE IF NOT EXISTS query_reports (
+-- create reports table
+CREATE TABLE IF NOT EXISTS reports (
   id SERIAL PRIMARY KEY,
   title VARCHAR(255),
   description VARCHAR,
@@ -26,3 +26,12 @@ CREATE TABLE IF NOT EXISTS categories (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- create dummy table
+CREATE TABLE IF NOT EXISTS students (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  gender VARCHAR(1),
+  birthday DATE,
+  nationality VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

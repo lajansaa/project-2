@@ -13,11 +13,31 @@ const db = require('./db');
 const app = express();
 
 // set handlebars as view engine
-// const handlebarsConfig = { defaultLayout: 'main' };
 const handlebarsConfig = {
   extname: '.handlebars',
   layoutsDir: 'views',
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+  helpers: {
+    tabulate: (data) => {
+      let str = '<table class="ui striped celled table">';
+      
+      str += '<thead><tr>';
+      for (let key in data[0]) {
+        str += '<th>' + key + '</th>';
+      }
+      str += '</tr></thead><tbody>';
+
+      for (let i = 0; i < data.length; i++ ) {
+        str += '<tr>';
+        for (let key in data[i]) {
+          str += '<td>' + data[i][key] + '</td>';
+        };
+        str += '</tr>';
+      };
+      str += '</tbody></table>';
+      return str;
+    }
+  }
 }
 app.engine('.handlebars', handlebars(handlebarsConfig));
 app.set('view engine', '.handlebars');

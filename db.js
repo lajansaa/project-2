@@ -1,5 +1,6 @@
 const pg = require('pg');
 const category = require('./models/category');
+const report = require('./models/report');
 
 const configs = {
   user: 'Isa',
@@ -15,7 +16,8 @@ pool.on('error', function (err) {
 });
 
 module.exports = {
-  categoryDB: category(pool)
+  categoryDB: category(pool),
+  reportDB: report(pool)
 }
 
 

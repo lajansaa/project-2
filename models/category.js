@@ -8,7 +8,7 @@ module.exports = (dbPool) => {
     },
 
     getCategoryReports: (category_id, callback) => {
-      const queryString = `SELECT title FROM query_reports WHERE category_id = '${category_id}' ORDER BY 1;`;
+      const queryString = `SELECT id, title FROM reports WHERE category_id = '${category_id}' ORDER BY 1;`;
       dbPool.query(queryString, (err, res) => {
         callback(err, res.rows);
       })
