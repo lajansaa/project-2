@@ -10,6 +10,24 @@ const getReport = (db) => {
   }
 }
 
+const editReport = (db) => {
+  return (request, response) => {
+    db.reportDB.get(request.params.id, (error, queryResults) => {
+      response.render('report/edit', queryResults);
+    })
+  }
+}
+
+const edit = (db) => {
+  return (request, response) => {
+    db.reportDB.edit(request.body, (error, queryResults) => {
+      response.send('done');
+    })
+  }
+}
+
 module.exports = {
-  getReport
+  getReport,
+  editReport,
+  edit
 }

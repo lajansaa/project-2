@@ -1,3 +1,6 @@
 <h2>{{metadata.title}}</h2>
+<form method="GET" action="/reports/{{metadata.id}}/edit">
+  <button class="ui button">Edit</button>
+</form>
 <h3>{{metadata.description}}</h3>
 <p>{{{tabulate data}}}</p>
