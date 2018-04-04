@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS reports (
   description VARCHAR,
   query VARCHAR,
   user_id INT,
-  category_id INT,
+  category_id INT DEFAULT 4,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

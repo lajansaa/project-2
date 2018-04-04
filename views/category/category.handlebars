@@ -1,5 +1,9 @@
+<form method="GET" action="/reports/new">
+  <button class="ui primary button" type="submit">New Report</button>
+</form>
+
 <div>
   {{#each category}}
-  <p><a href="/categories/{{this.id}}">{{this.title}}</a></p>
+  <p><i class="fas fa-folder-open"></i> <a href="/categories/{{this.id}}">{{this.title}}</a></p>
   {{/each}}
 </div>

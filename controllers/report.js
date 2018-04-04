@@ -26,8 +26,26 @@ const edit = (db) => {
   }
 }
 
+const newReport = (db) => {
+  return (request, response) => {
+    db.reportDB.getCategory((error, queryResults) => {
+      response.render('report/new', { category: queryResults });
+    });
+  }
+}
+
+const createReport = (db) => {
+  return (request, response) => {
+    db.reportDB.createReport(request.body, (error, queryResults) => {
+      response.send(queryResults);
+    });
+  }
+}
+
 module.exports = {
   getReport,
   editReport,
-  edit
+  edit,
+  newReport,
+  createReport
 }
