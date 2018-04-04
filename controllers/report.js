@@ -2,9 +2,15 @@ const getReport = (db) => {
   return (request, response) => {
     db.reportDB.get(request.params.id, (error, queryResults) => {
       db.reportDB.getOutput(queryResults.query, (error2, queryResults2) => {
-        response.render('report/report', { metadata: queryResults, 
-                                           data: queryResults2 })
-        
+        if (error2) {
+          console.log(error2);
+          response.render('report/report', { metadata: queryResults,
+                                             error: true, 
+                                             errorMessage : error2 })
+        } else {
+          response.render('report/report', { metadata: queryResults, 
+                                             data: queryResults2.rows })
+        }
       })
     })
   }

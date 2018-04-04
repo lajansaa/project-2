@@ -24,7 +24,7 @@ module.exports = (dbPool) => {
 
     getOutput: (queryString, callback) => {
       dbPool.query(queryString, (err, res) => {
-        callback(err, res.rows);
+        callback(err, res);
       })
     },
 
