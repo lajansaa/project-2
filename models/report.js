@@ -47,6 +47,13 @@ module.exports = (dbPool) => {
       dbPool.query(insertString, (err, res) => {
         callback(err, res.rows[0]);
       })
+    },
+
+    remove: (report_id, callback) => {
+      const deleteString = `DELETE FROM reports WHERE id = ${report_id} RETURNING category_id;`;
+      dbPool.query(deleteString, (err, res) => {
+        callback(err, res.rows[0]);
+      })
     }
 
   }

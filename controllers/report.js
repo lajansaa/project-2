@@ -42,10 +42,19 @@ const createReport = (db) => {
   }
 }
 
+const remove = (db) => {
+  return (request, response) => {
+    db.reportDB.remove(request.params.id, (error, queryResults) => {
+      response.send(queryResults);
+    });
+  }
+}
+
 module.exports = {
   getReport,
   editReport,
   edit,
   newReport,
-  createReport
+  createReport,
+  remove
 }

@@ -7,6 +7,7 @@ module.exports = (app, db) => {
 
   app.get('/reports/new', reports.newReport(db)),
   app.post('/reports/new', reports.createReport(db)),
+  app.delete('/reports/:id/delete', reports.remove(db)),
   app.get('/reports/:id', reports.getReport(db)),
   app.get('/reports/:id/edit', reports.editReport(db)),
   app.put('/reports/:id/edit', reports.edit(db))

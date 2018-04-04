@@ -1,6 +1,12 @@
 <p id="report-id" style="display:none">{{id}}</p>
-<p><input id="report-title" value="{{title}}"></p>
-<p><input id="report-description" value="{{description}}"></p>
+<div class="ui form">
+  <div class="field">
+    <input id="report-title" value="{{title}}">
+  </div>
+  <div class="field">
+    <textarea rows="4" id="report-description" value="{{description}}"></textarea>
+  </div>
+</div>
 Category: <select class="ui dropdown">
     <option value="{{category_id}}">{{category_title}}</option>
   {{#each category}}

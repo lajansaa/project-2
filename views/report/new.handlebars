@@ -1,5 +1,11 @@
-<p><input id="report-title" placeholder="Title..."></p>
-<p><input id="report-description" placeholder="Description..."></p>
+<div class="ui form">
+  <div class="field">
+    <input id="report-title" placeholder="Title...">
+  </div>
+  <div class="field">
+    <textarea rows="4" id="report-description" placeholder="Description..."></textarea>
+  </div>
+</div>
 Category: <select class="ui dropdown">
   {{#each category}}
     <option value="{{id}}">{{title}}</option>
@@ -8,7 +14,7 @@ Category: <select class="ui dropdown">
 <div id="editor"></div>
 
 <button id="report-save" class="ui primary button" type="submit">Save</button>
-<form method="GET" action="/category/category">
+<form method="GET" action="/categories">
   <button class="ui button" type="submit">Cancel</button>
 </form>
 
@@ -27,7 +33,6 @@ Category: <select class="ui dropdown">
                 category_id: $('.dropdown option:selected').val(),
                 query: editor.getValue()
               }
-
       }).done( (response) => {
           window.location = '/reports/' + response.id
       });
