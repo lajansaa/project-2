@@ -1,9 +1,12 @@
+// downloading of output results
+const json2xls = require('json2xls');
+const fs = require('fs');
+
 const getReport = (db) => {
   return (request, response) => {
     db.reportDB.get(request.params.id, (error, queryResults) => {
       db.reportDB.getOutput(queryResults.query, (error2, queryResults2) => {
         if (error2) {
-          console.log(error2);
           response.render('report/report', { metadata: queryResults,
                                              error: true, 
                                              errorMessage : error2 })
@@ -56,11 +59,37 @@ const remove = (db) => {
   }
 }
 
+const downloadReport = (db) => {
+  return (request, response) => {
+    db.reportDB.get(request.params.id, (error, queryResults) => {
+      db.reportDB.getOutput(queryResults.query, (error2, queryResults2) => {
+        if (error2) {
+          response.render('report/report', { metadata: queryResults,
+                                             error: true, 
+                                             errorMessage : error2 })
+        } else {
+          const xls = json2xls(queryResults2.rows);
+          const fileName = queryResults.title.replace(/\s/g, '-') + '.xlsx';
+          fs.writeFileSync('./public/exports/' + fileName, xls, 'binary');
+          response.download('./public/exports/' + fileName, fileName, (err) => {
+            if (err) {
+              console.error(err);
+            } else {
+              fs.unlinkSync('./public/exports/' + fileName);
+            }
+          });
+        }
+      })
+    })
+  }
+}
+
 module.exports = {
   getReport,
   editReport,
   edit,
   newReport,
   createReport,
-  remove
+  remove,
+  downloadReport
 }

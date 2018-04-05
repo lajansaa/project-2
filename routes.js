@@ -5,6 +5,7 @@ module.exports = (app, db) => {
   app.get('/categories/:id', categories.getCategoryReports(db)),
   app.get('/categories', categories.getCategories(db)),
 
+  app.post('/reports/:id/download', reports.downloadReport(db)),
   app.get('/reports/new', reports.newReport(db)),
   app.post('/reports/new', reports.createReport(db)),
   app.delete('/reports/:id/delete', reports.remove(db)),
