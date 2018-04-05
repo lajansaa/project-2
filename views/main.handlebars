@@ -15,25 +15,29 @@
   <title>QueryMe</title>
 </head>
 <body>
-    <header>
-    <div class="logo">QueryMe</div>
-    <div class="align-right">
-      <div class="search">Search</div>
-      <div class="sign-in">Sign In</div>
-    </div>
-  </header>
-  <div class="main-container">
-    <div class="navigation">
-      <p><a class="side-link" href="/categories">Reports</a></p>
-      <p><a class="side-link" href="#">Favourites</a></p>
-      <p><a class="side-link" href="#">Control Panel</a></p>
-    </div>
-    <div class="main-content">
-      {{{body}}}
+  <div class="ui borderless menu">
+    <a class="item logo">QueryMe</a>
+    <div class="right menu">
+      <a class="item">Sign Up</a>
     </div>
   </div>
+  <div class="ui grid">
+    <div class="four wide column">
+      <div class="ui vertical fluid tabular menu">
+        <a class="item active" href="/categories">Reports</a>
+        <a class="item" href="#">Favourites</a>
+        <a class="item" href="#">Control Panel</a>
+      </div>
+    </div>
+    <div class="twelve wide stretched column">
+      <div class="ui segment">
+        {{{body}}}
+      </div>
+    </div>
+  </div>
+<!-- 
   <footer>
     <p>&copy; 2018 QueryMe</p>
-  </footer>
+  </footer> -->
 </body>
 </html>

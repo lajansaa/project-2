@@ -14,14 +14,10 @@ header {
   justify-content: space-between;
 }
 
-.logo, .search, .sign-in {
-  display: inline-block;
-  color: #FFF;
-}
-
 .logo {
   font-family: 'Euphoria Script', cursive;
   font-size: 3rem;
+  color: #FFF !important;
 }
 
 .align-right {
@@ -38,7 +34,30 @@ header {
 .navigation {
   height: 100vh;
   padding: 20px;
-  background-color: #B7D5D4;
+  /*background-color: #B7D5D4;*/
+}
+
+form {
+  display: inline-block;
+}
+
+.ui.menu {
+  background-color: #68B0AB; 
+}
+
+.ui.menu.fluid, .ui.vertical.menu.fluid {
+  height: 100vh;
+}
+
+.ui.segment {
+  border: none;
+  box-shadow: none;
+}
+
+.wide.column {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 50px !important; 
 }
 
 .main-content {
@@ -62,6 +81,11 @@ header {
   font-style: italic;
 }
 
+h2 {
+  display: inline;
+  margin-right: 10px; 
+}
+
 footer {
   position: fixed;
   width: 100vw;
@@ -69,4 +93,5 @@ footer {
   bottom: 0;
   background-color: #68B0AB; 
   padding: 0 10px;
+  z-index: 999;
 }

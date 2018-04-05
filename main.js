@@ -64,12 +64,3 @@ app.get('*', (request, response) => {
 
 // listen on port 3000
 const server = app.listen(3000, () => console.log('~~~ Tuning in to the waves of port 3000 ~~~'));
-
-// Run clean up actions when server shuts down
-server.on('close', () => {
-  console.log('Closed express server');
-
-  db.pool.end(() => {
-    console.log('Shut down db connection pool');
-  });
-});
