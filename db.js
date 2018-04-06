@@ -3,10 +3,10 @@ const category = require('./models/category');
 const report = require('./models/report');
 
 const configs = {
-  user: 'Isa',
-  host: '127.0.0.1',
-  database: 'queryme',
-  port: 5432
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT
 };
 
 const pool = new pg.Pool(configs);

@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const dotenv = require('dotenv').config();
 
 // other internal js files
 const db = require('./db');
@@ -49,7 +50,7 @@ app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
 // import routes
-require('./routes')(app, db);
+require('./routes')(app);
 
 // home page
 app.get('/', (request, response) => {
