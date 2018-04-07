@@ -1,0 +1,14 @@
+<div>
+  {{#if (equate count 0)}}
+    <div class="ui info message">
+      <p>Favourite some reports that you view often to access them easily.</p>
+    </div>
+  {{else}}
+    {{#each results}}
+    <div>
+      <i class="fas fa-file"></i>
+      <a href="/reports/{{this.report_id}}">{{this.title}}</a>
+    </div>
+    {{/each}}
+  {{/if}}
+</div>

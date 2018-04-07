@@ -4,7 +4,10 @@ const fs = require('fs');
 const db = require('../db');
 
 const getReport = (request, response) => {
-  db.reportDB.get(request.params.id, (error, queryResults) => {
+  const payload = { report_id: parseInt(request.params.id),
+                    user_id: request.decoded.id
+                  }
+    db.reportDB.get(payload, (error, queryResults) => {
     db.reportDB.getOutput(queryResults.query, (error2, queryResults2) => {
       if (error2) {
         response.render('report/report', { user: request.decoded,
@@ -22,7 +25,10 @@ const getReport = (request, response) => {
 
 
 const editReport = (request, response) => {
-  db.reportDB.get(request.params.id, (error, queryResults) => {
+  const payload = { report_id: parseInt(request.params.id),
+                    user_id: request.decoded.id
+                  }
+  db.reportDB.get(payload, (error, queryResults) => {
     response.render('report/edit', Object.assign({ user: request.decoded } ,queryResults));
   })
 }
@@ -83,7 +89,11 @@ const downloadReport = (request, response) => {
 
 
 const favourite = (request, response) => {
-  db.reportDB.favourite(request.params.id, (error) => {
+  const payload = { report_id: parseInt(request.params.id),
+                    user_id: request.decoded.id,
+                    rating: parseInt(request.body.rating)
+                  }
+  db.reportDB.favourite(payload, (error) => {
     if (error) {
       console.error(error);
     } else {

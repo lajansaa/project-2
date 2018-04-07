@@ -21,6 +21,7 @@ module.exports = (app) => {
   app.post('/users/login', users.login),
   app.post('/users/logout', users.logout),
   app.get('/users/login', users.loginForm),
+  app.get('/users/favourite', users.favourite),
 
   app.get('/admin', admins.getControlPanel)
 }

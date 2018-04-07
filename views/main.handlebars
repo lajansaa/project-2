@@ -43,7 +43,7 @@
       <div class="four wide column">
         <div class="ui vertical fluid tabular menu">
           <a class="item active" href="/categories">Reports</a>
-          <a class="item" href="#">Favourites</a>
+          <a class="item" href="/users/favourite">Favourites</a>
           {{#if (equate user.role "admin")}}
             <a class="item" href="/admin">Control Panel</a>
           {{/if}}
@@ -60,10 +60,5 @@
   <footer>
     <p>&copy; 2018 QueryMe</p>
   </footer> -->
-  <script>
-    window.onload =function() {
-      $('.ui.dropdown').dropdown();
-    }
-  </script>
 </body>
 </html>

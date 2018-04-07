@@ -17,6 +17,7 @@
 
 <script>
 window.onload = function() {
+  $('.ui.dropdown').dropdown();
   $("#report-delete").on('click', () => {
     const reportId = parseInt($("#report-delete").attr("data"));
     $.ajax({

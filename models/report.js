@@ -1,6 +1,6 @@
 module.exports = (dbPool) => {
   return {
-    get: (report_id, callback) => {
+    get: (payload, callback) => {
       const reportQueryString = `SELECT
                                      R.*,
                                      C.title AS category_title,
@@ -8,14 +8,14 @@ module.exports = (dbPool) => {
                                  FROM reports R
                                  JOIN categories C ON R.category_id = C.id
                                  JOIN users U ON R.user_id = U.id
-                                 WHERE R.id = ${report_id};`;
+                                 WHERE R.id = ${payload.report_id};`;
       dbPool.query(reportQueryString, (err, res) => {
         const categoryQueryString = `SELECT
                                          C.id,
                                          C.title
                                      FROM categories C
                                      LEFT JOIN reports R ON C.id = R.category_id
-                                                        AND R.id = ${report_id}
+                                                        AND R.id = ${payload.report_id}
                                      WHERE R.id IS NULL
                                      ORDER BY 2;`;
         dbPool.query(categoryQueryString, (err2, res2) => {
@@ -24,11 +24,17 @@ module.exports = (dbPool) => {
                                        U.name
                                    FROM users U
                                    LEFT JOIN reports R ON U.id = R.user_id
-                                                      AND R.id = ${report_id}
+                                                      AND R.id = ${payload.report_id}
                                    WHERE R.id IS NULL
                                    ORDER BY 2;`;
           dbPool.query(userQueryString, (err3, res3) => {
-            callback(err3, Object.assign(res.rows[0], { category: res2.rows, author: res3.rows }));
+            const favouriteQueryString = `SELECT *
+                                          FROM favourites F
+                                          WHERE F.report_id = ${payload.report_id}
+                                            AND F.user_id = ${payload.user_id}`;
+            dbPool.query(favouriteQueryString, (err4, res4) => {
+              callback(err3, Object.assign(res.rows[0], { category: res2.rows, author: res3.rows, favourite: res4.rowCount==1 ? true : false }));
+            })
           })
         })
       })
@@ -68,13 +74,12 @@ module.exports = (dbPool) => {
       })
     },
 
-    favourite: (favourite, callback) => {
-      if (favourite.value == 1) {
-        const queryString = `INSERT INTO favourites(user_id, report_id) VALUES (${favourite.user_id}, ${favourite.report_id});`;
+    favourite: (payload, callback) => {
+      if (payload.rating == 1) {
+        var queryString = `INSERT INTO favourites(user_id, report_id) VALUES (${payload.user_id}, ${payload.report_id});`;
       } else {
-        const queryString = `DELETE FROM favourites WHERE user_id='${favourite.user_id}', report_id='${favourite.report_id};`;
+        var queryString = `DELETE FROM favourites WHERE user_id='${payload.user_id}' AND report_id='${payload.report_id}';`;
       }
-
       dbPool.query(queryString, (err, res) => {
         callback(err);
       })

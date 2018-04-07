@@ -1,5 +1,11 @@
 <h2>{{metadata.title}}</h2>
-<div class="ui large star rating" data-max-rating="1"></div>
+
+{{#if (equate metadata.favourite 0)}}
+  <div class="ui large star rating" data-max-rating="1"></div>
+{{else}}
+  <div class="ui large star rating" data-rating="1" data-max-rating="1"></div>
+{{/if}}
+
 <h3>{{metadata.description}}</h3>
 
 {{#if error}}
@@ -19,13 +25,15 @@
 </form>
 
 <script>
-  window.onload = () => {
-    // $('.ui.rating').rating('setting', 'onRate', (value) => {
-    //   $.ajax({
-    //     method: "PUT",
-    //     url: "favourite?_method=PUT",
-    //     data: { rating: value }
-    //   })
-    // })
+  window.onload = function() {
+    $('.ui.dropdown').dropdown();
+    $('.ui.rating').rating();
+    $('.ui.rating').rating('setting', 'onRate', (value) => {
+      $.ajax({
+        method: "PUT",
+        url: window.location + "/favourite?_method=PUT",
+        data: { rating: value }
+      })
+    })
   }
 </script>

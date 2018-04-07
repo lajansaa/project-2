@@ -33,10 +33,17 @@ const logout = (request, response) => {
   response.render('user/logout');
 }
 
+const favourite = (request, response) => {
+  db.userDB.getFavourite(request.decoded.id, (error, queryResults) => {
+    response.render('user/favourite', Object.assign({ user: request.decoded }, queryResults));
+  })
+}
+
 module.exports = {
   newForm,
   create,
   loginForm,
   login,
-  logout
+  logout,
+  favourite
 }

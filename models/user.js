@@ -51,6 +51,24 @@ module.exports = (dbPool) => {
           })
         }
       })
+    },
+
+    getFavourite: (user_id, callback) => {
+      const queryString = `SELECT
+                               F.report_id,
+                               R.title
+                           FROM favourites F
+                           JOIN reports R ON F.report_id = R.id
+                           WHERE F.user_id='${user_id}';`;
+      dbPool.query(queryString, (err, results) => {
+        if (err) {
+          console.error(err);
+        } else {
+          callback(err, { count: results.rowCount,
+                          results: results.rows
+                        });
+        }
+      })
     }
 
   }
