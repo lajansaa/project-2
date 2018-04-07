@@ -35,3 +35,11 @@ CREATE TABLE IF NOT EXISTS students (
   nationality VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- create favourites table
+CREATE TABLE IF NOT EXISTS favourites (
+  id SERIAL PRIMARY KEY,
+  user_id INT,
+  report_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -1,6 +1,8 @@
 const pg = require('pg');
 const category = require('./models/category');
 const report = require('./models/report');
+const user = require('./models/user');
+const admin = require('./models/admin');
 
 const configs = {
   user: process.env.DB_USER,
@@ -17,7 +19,21 @@ pool.on('error', function (err) {
 
 module.exports = {
   categoryDB: category(pool),
-  reportDB: report(pool)
+  reportDB: report(pool),
+  userDB: user(pool),
+  adminDB: admin(pool)
+
+  // ,
+  // singleQuery: async function(queryObj) {
+  //   try {
+  //     let result = await pool.query(queryObj);
+  //     return result.rows;
+  //   } catch (error) {
+  //     console.error(error.stack);
+  //   } finally {
+  //     client.release();
+  //   }    
+  // }
 }
 
 

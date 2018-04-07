@@ -3,9 +3,11 @@ module.exports = (dbPool) => {
     get: (report_id, callback) => {
       const reportQueryString = `SELECT
                                      R.*,
-                                     C.title AS category_title
+                                     C.title AS category_title,
+                                     U.name AS user_name
                                  FROM reports R
                                  JOIN categories C ON R.category_id = C.id
+                                 JOIN users U ON R.user_id = U.id
                                  WHERE R.id = ${report_id};`;
       dbPool.query(reportQueryString, (err, res) => {
         const categoryQueryString = `SELECT
@@ -17,7 +19,17 @@ module.exports = (dbPool) => {
                                      WHERE R.id IS NULL
                                      ORDER BY 2;`;
         dbPool.query(categoryQueryString, (err2, res2) => {
-          callback(err2, Object.assign(res.rows[0], {category: res2.rows}));
+          const userQueryString = `SELECT
+                                       U.id,
+                                       U.name
+                                   FROM users U
+                                   LEFT JOIN reports R ON U.id = R.user_id
+                                                      AND R.id = ${report_id}
+                                   WHERE R.id IS NULL
+                                   ORDER BY 2;`;
+          dbPool.query(userQueryString, (err3, res3) => {
+            callback(err3, Object.assign(res.rows[0], { category: res2.rows, author: res3.rows }));
+          })
         })
       })
     },
@@ -53,6 +65,18 @@ module.exports = (dbPool) => {
       const deleteString = `DELETE FROM reports WHERE id = ${report_id} RETURNING category_id;`;
       dbPool.query(deleteString, (err, res) => {
         callback(err, res.rows[0]);
+      })
+    },
+
+    favourite: (favourite, callback) => {
+      if (favourite.value == 1) {
+        const queryString = `INSERT INTO favourites(user_id, report_id) VALUES (${favourite.user_id}, ${favourite.report_id});`;
+      } else {
+        const queryString = `DELETE FROM favourites WHERE user_id='${favourite.user_id}', report_id='${favourite.report_id};`;
+      }
+
+      dbPool.query(queryString, (err, res) => {
+        callback(err);
       })
     }
 

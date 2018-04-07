@@ -3,7 +3,11 @@ module.exports = (dbPool) => {
     getCategories: (callback) => {
       const queryString = `SELECT * FROM categories ORDER BY 1;`;
       dbPool.query(queryString, (err, res) => {
-        callback(err, res.rows);
+        if (err) {
+          console.error(err);
+        } else {
+          callback(err, res.rows);
+        }
       })
     },
 

@@ -1,16 +1,27 @@
 const categories = require('./controllers/category');
 const reports = require('./controllers/report');
+const users = require('./controllers/user');
+const admins = require('./controllers/admin');
 
-module.exports = (app, db) => {
-  app.get('/categories/:id', categories.getCategoryReports(db)),
-  app.get('/categories', categories.getCategories(db)),
+module.exports = (app) => {
+  app.get('/categories/:id', categories.getCategoryReports),
+  app.get('/categories', categories.getCategories),
 
-  app.post('/reports/:id/download', reports.downloadReport(db)),
-  app.get('/reports/new', reports.newReport(db)),
-  app.post('/reports/new', reports.createReport(db)),
-  app.delete('/reports/:id/delete', reports.remove(db)),
-  app.get('/reports/:id', reports.getReport(db)),
-  app.get('/reports/:id/edit', reports.editReport(db)),
-  app.put('/reports/:id/edit', reports.edit(db))
+  app.post('/reports/:id/download', reports.downloadReport),
+  app.get('/reports/new', reports.newReport),
+  app.post('/reports/new', reports.createReport),
+  app.delete('/reports/:id/delete', reports.remove),
+  app.get('/reports/:id', reports.getReport),
+  app.get('/reports/:id/edit', reports.editReport),
+  app.put('/reports/:id/edit', reports.edit),
+  app.put('/reports/:id/favourite', reports.favourite),
+
+  app.get('/users/new', users.newForm),
+  app.post('/users/new', users.create),
+  app.post('/users/login', users.login),
+  app.post('/users/logout', users.logout),
+  app.get('/users/login', users.loginForm),
+
+  app.get('/admin', admins.getControlPanel)
 }
 

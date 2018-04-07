@@ -18,20 +18,33 @@
   <div class="ui borderless menu">
     <a class="item logo">QueryMe</a>
     <div class="right menu">
-      <a class="item">Sign Up</a>
+      {{#if user.loggedIn}}
+      <a class="item">
+        <form method="post" action="/users/logout" class="inline">
+          <button type="submit" name="submit" class="link-button">
+            Logout
+          </button>
+        </form>
+      </a>
+      {{else}}
+      <a class="item" href="/users/login"><i class="fas fa-user"></i> Login</a>
+      <a class="item" href="/users/new">Request Access</a>
+      {{/if}}
     </div>
   </div>
-  <div class="ui grid">
-    <div class="four wide column">
-      <div class="ui vertical fluid tabular menu">
-        <a class="item active" href="/categories">Reports</a>
-        <a class="item" href="#">Favourites</a>
-        <a class="item" href="#">Control Panel</a>
+  <div class="main-content">
+    <div class="ui grid">
+      <div class="four wide column">
+        <div class="ui vertical fluid tabular menu">
+          <a class="item active" href="/categories">Reports</a>
+          <a class="item" href="#">Favourites</a>
+          <a class="item" href="/admin">Control Panel</a>
+        </div>
       </div>
-    </div>
-    <div class="twelve wide stretched column">
-      <div class="ui segment">
-        {{{body}}}
+      <div class="twelve wide stretched column">
+        <div class="ui segment">
+          {{{body}}}
+        </div>
       </div>
     </div>
   </div>
@@ -39,5 +52,8 @@
   <footer>
     <p>&copy; 2018 QueryMe</p>
   </footer> -->
+  <script>
+    
+  </script>
 </body>
 </html>

@@ -1,0 +1,52 @@
+Arguments: 
+  /usr/local/Cellar/node/9.9.0/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js remove express-session
+
+PATH: 
+  /Users/Isa/.rvm/gems/ruby-2.3.0/bin:/Users/Isa/.rvm/gems/ruby-2.3.0@global/bin:/Users/Isa/.rvm/rubies/ruby-2.3.0/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/texbin:/Users/Isa/.rvm/bin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.9.0
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "project-2",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/lajansaa/project-2.git",
+    "author": "Isa <lajansa@hotmail.com>",
+    "license": "MIT",
+    "dependencies": {
+      "bcrypt": "^1.0.3",
+      "body-parser": "^1.18.2",
+      "cookie-parser": "^1.4.3",
+      "dotenv": "^5.0.1",
+      "express": "^4.16.3",
+      "express-handlebars": "^3.0.0",
+      "express-session": "^1.15.6",
+      "fs": "0.0.1-security",
+      "json2xls": "^0.1.2",
+      "jsonwebtoken": "^8.2.1",
+      "method-override": "^2.3.10",
+      "pg": "^7.4.1",
+      "semantic-ui": "^2.3.1",
+      "underscore": "^1.8.3"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: No lockfile in this directory. Run `yarn install` to generate one.
+      at new MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
+      at /usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:89389:13
+      at <anonymous>
