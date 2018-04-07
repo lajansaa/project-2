@@ -22,6 +22,7 @@ header {
   font-family: 'Euphoria Script', cursive;
   font-size: 3rem;
   color: #FFF !important;
+  padding: 20px !important;
 }
 
 .align-right {
@@ -44,13 +45,18 @@ header {
 .link-button {
   background: none;
   border: none;
-  color: #FFF;
+  color: #000;
+  padding: 0;
 }
 
 .link-button:focus {
   outline: none;
 }
 
+.fa-cog, .user-name, .dropdown.icon {
+  color: #FFF;
+  text-transform: capitalize;
+}
 
 form {
   display: inline-block;

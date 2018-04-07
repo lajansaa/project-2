@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const dotenv = require('dotenv').config();
-const session = require('express-session');
 const jwt = require('jsonwebtoken');
 
 // other internal js files
@@ -39,6 +38,13 @@ const handlebarsConfig = {
       };
       str += '</tbody></table>';
       return str;
+    },
+    equate: (x, y) => {
+      if (x == y) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }
@@ -78,7 +84,7 @@ function authenticateUser(request, response, next) {
 
 // home page
 app.get('/', (request, response) => {
-  response.render('home', { user: request.decoded });
+  response.redirect('/categories');
 })
 
 // import routes

@@ -9,7 +9,7 @@ const create = (request, response) => {
     if (queryResults.duplicate == false) {
       response.cookie('token', queryResults.token);
     }
-    response.render('home', { user: { loggedIn: true } });
+    response.redirect('/categories');
   })
 }
 
@@ -23,14 +23,14 @@ const login = (request, response) => {
       response.render('error/invalid-credentials');
     } else {
       response.cookie('token', queryResults.token);
-      response.render('home', { user: { loggedIn: true } });
+      response.redirect('/categories');
     }
   })
 }
 
 const logout = (request, response) => {
   response.clearCookie('token');
-  response.render('home');
+  response.render('user/logout');
 }
 
 module.exports = {

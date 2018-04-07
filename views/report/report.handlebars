@@ -8,9 +8,11 @@
   <p>{{{tabulate data}}}</p>
 {{/if}}
 
+{{#if (equate user.role "admin")}}
 <form method="GET" action="/reports/{{metadata.id}}/edit">
   <button class="ui primary button">Edit</button>
 </form>
+{{/if}}
 
 <form method="POST" action="/reports/{{metadata.id}}/download">
   <button class="ui button">Download as Excel</button>
