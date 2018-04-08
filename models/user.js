@@ -69,6 +69,24 @@ module.exports = (dbPool) => {
                         });
         }
       })
+    },
+
+    remove: (user_id, callback) => {
+      const deleteString = `DELETE from users WHERE id = ${user_id};`;
+      dbPool.query(deleteString, (err, results) => {
+        if (err) {
+            console.error(err);
+        } else {
+          const deleteFavString = `DELETE FROM favourites WHERE user_id = ${user_id};`;
+          dbPool.query(deleteFavString, (err2, results2) => {
+            if (err2) {
+              console.error(err2);
+            } else {
+              callback(err2, results2);
+            }
+          })
+        }
+      })
     }
 
   }

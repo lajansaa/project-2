@@ -1,7 +1,11 @@
 const db = require('../db');
 
 const getControlPanel = (request, response) => {
-  response.render('admin/control-panel', { user: request.decoded } );
+  db.adminDB.getUsers(request.decoded.id, (error, queryResults) => {
+    response.render('admin/control-panel', { user: request.decoded,
+                                             allUsers: queryResults
+                                           });
+  })
 }
 
 module.exports = {

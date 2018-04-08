@@ -14,31 +14,3 @@
   </div>
   <button class="ui primary button" type="submit" >Request Access</button>
 </form>
-
-<!-- <script>
-  window.onload = function() {
-    $('#new-user button').on('click', function(e) {
-      e.preventDefault();
-      $.ajax({
-        method: "POST",
-        data: { name: $('#new-user input.name').val(),
-                email: $('#new-user input.email').val(),
-                password: $('#new-user input.password').val(),
-              }
-      }).done((response) => {
-        if (response.duplicate == true) {
-          $('.form .error.message').html('User already exists.').show();
-        } else {
-          $.ajax({
-    url: 'foo/bar',
-    headers: { 'x-access-token': response.token }
-}); 
-window.location = '/categories';
-        }
-      })
-    })
-    $('#new-user input.email').on('change', function(){
-      $('.form .error.message').css('display', 'none');
-    })
-  }
-</script> -->

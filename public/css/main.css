@@ -18,6 +18,10 @@ header {
   min-width: 770px;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .logo {
   font-family: 'Euphoria Script', cursive;
   font-size: 3rem;

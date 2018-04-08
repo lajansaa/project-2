@@ -39,11 +39,18 @@ const favourite = (request, response) => {
   })
 }
 
+const remove = (request, response) => {
+  db.userDB.remove(request.params.id, (error, queryResults) => {
+    response.redirect('../../admin');
+  })
+}
+
 module.exports = {
   newForm,
   create,
   loginForm,
   login,
   logout,
-  favourite
+  favourite,
+  remove
 }
