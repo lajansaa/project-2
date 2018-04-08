@@ -64,7 +64,10 @@ const remove = (request, response) => {
 
 
 const downloadReport = (request, response) => {
-  db.reportDB.get(request.params.id, (error, queryResults) => {
+  const payload = { report_id: parseInt(request.params.id),
+                    user_id: request.decoded.id
+                  }
+  db.reportDB.get(payload, (error, queryResults) => {
     db.reportDB.getOutput(queryResults.query, (error2, queryResults2) => {
       if (error2) {
         response.render('report/report', { user: request.decoded,
