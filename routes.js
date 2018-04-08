@@ -23,6 +23,7 @@ module.exports = (app) => {
   app.get('/users/login', users.loginForm),
   app.get('/users/favourite', users.favourite),
   app.delete('/users/:id/delete', users.remove),
+  app.put('/users/:id/edit', users.edit),
 
   app.get('/admin', admins.getControlPanel)
 }

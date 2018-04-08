@@ -35,21 +35,25 @@ module.exports = (dbPool) => {
         if (err) {
           console.error(err);
         } else {
-          bcrypt.compare(user.password, results.rows[0].password, (err2, results2) => {
-             if (results2 == true) {
-               let payload = {
-                 id: results.rows[0].id,
-                 name: results.rows[0].name,
-                 role: results.rows[0].role,
-                 loggedIn: true
-               }
-               let token = jwt.sign(payload, process.env.TOKEN_KEY)
-               callback(err2, { token: token });
-             } else {
-               callback(err2, results2);
-             }
-          })
-        }
+          if (results.rowCount == 0) {
+            callback(err, {userNotFound: true});
+          } else {
+            bcrypt.compare(user.password, results.rows[0].password, (err2, results2) => {
+              if (results2 == true) {
+                let payload = {
+                  id: results.rows[0].id,
+                  name: results.rows[0].name,
+                  role: results.rows[0].role,
+                  loggedIn: true
+                }
+                let token = jwt.sign(payload, process.env.TOKEN_KEY)
+                callback(err2, { token: token });
+              } else {
+                callback(err2, {invalidCredentials: true});
+              }
+            })
+          }
+        } 
       })
     },
 
@@ -86,6 +90,19 @@ module.exports = (dbPool) => {
             }
           })
         }
+      })
+    },
+
+    edit: (user, callback) => {
+      bcrypt.hash(user.password, 1, (err2, hashedPassword) => {
+        const updateString = `UPDATE users SET name='${user.name}', email='${user.email}', password='${hashedPassword}', role='${user.role}' WHERE id = ${user.id};`;
+        dbPool.query(updateString, (err, results) => {
+          if (err) {
+              console.error(err);
+          } else {
+            callback(err, results);
+          }
+        })
       })
     }
 

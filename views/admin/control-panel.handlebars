@@ -4,12 +4,82 @@
   <a class="item">Data Sources</a>
 </div>
 
+<div class="ui primary button add-user-button"">Add User</div>
+<div class="ui tiny modal add-user">
+<div class="header">Add New User</div>
+  <div class="content"> 
+    <form class="ui form" method="POST" action="/users/new">
+      <div class="field">
+        <label>First Name</label>
+        <input type="text" name="name" placeholder="First Name" required>
+      </div>
+      <div class="field">
+        <label>Work Email</label>
+        <input type="text" name="email" placeholder="Work Email" required>
+      </div>
+      <div class="ui error message" style="display:none"></div>
+      <div class="field">
+        <label>Create Password</label>
+        <input type="password" name="password" placeholder="Create Password" required>
+      </div>
+      <div class="field">
+        <label>Role</label>
+        <select name="role" class="ui fluid dropdown">
+          <option value="business user">Business User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div class="actions">
+        <div class="ui cancel negative button">Cancel</div>
+        <button data="{{this.id}}" class="ui approve positive button edit-user" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div class="ui middle aligned divided list">
   {{#each allUsers}}
   <div class="item">
     <div class="right floated content">
-      <div id="edit-user" class="ui primary button">Edit</div>
       
+      <div class="ui primary button edit-user-button"  data="{{this.id}}">Edit</div>
+      <div class="ui tiny modal edit-{{this.id}}">
+        <div class="header">Edit {{this.name}}</div>
+        <div class="content"> 
+          <form class="ui form" method="POST" action="/users/{{this.id}}/edit?_method=PUT">
+            <div class="field">
+              <label>Name</label>
+              <input type="text" name="name" value="{{this.name}}" required>
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input type="text" name="email" value="{{this.email}}" required>
+            </div>
+            <div class="field">
+              <label>Reset Password</label>
+              <input type="password" name="password" placeholder="Reset Password" required>
+            </div>
+
+            <div class="field">
+              <label>Role</label>
+              <select name="role" class="ui fluid dropdown">
+                {{#if (equate this.role "business user")}}
+                  <option value="business user">Business User</option>
+                  <option value="admin">Admin</option>
+                {{else}}
+                  <option value="admin">Admin</option>
+                  <option value="business user">Business User</option>
+                {{/if}}
+              </select>
+            </div>
+            <div class="actions">
+              <div class="ui cancel negative button">Cancel</div>
+              <button data="{{this.id}}" class="ui approve positive button edit-user" type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <div class="ui negative button delete-user-button" data="{{this.id}}">Delete</div>
       <div class="ui mini modal delete-{{this.id}}">
         <div class="content">
@@ -29,37 +99,22 @@
   {{/each}}
 </div>
 
-<div class="ui tiny modal edit">
-  <div class="header">Edit</div>
-  <form id="new-user" class="ui form" method="POST" action="/users/new">
-  <div class="field">
-    <label>First Name</label>
-    <input type="text" class="name" name="name" placeholder="First Name" required>
-  </div>
-  <div class="field">
-    <label>Work Email</label>
-    <input type="text" class="email" name="email" placeholder="Work Email" required>
-  </div>
-  <div class="ui error message" style="display:none"></div>
-  <div class="field">
-    <label>Create Password</label>
-    <input type="password" class="password" name="password" placeholder="Create Password" required>
-  </div>
-  <button class="ui primary button" type="submit" >Request Access</button>
-</form>
-</div>
-
-
-
 <script>
 window.onload = function() {
+  $('.ui.dropdown').dropdown();
+
+  $('.add-user-button').on('click', function() {
+    $('.ui.modal.add-user').modal('show');
+  });
+
   $('.delete-user-button').on('click', function() {
-    console.log($(this).attr('data'));
     const deleteUser = '.ui.modal.delete-' + $(this).attr('data');
     $(`${deleteUser}`).modal('show');
   });
-  $('#edit-user').on('click', function() {
-    $('.modal.edit').modal('show');
+
+  $('.edit-user-button').on('click', function() {
+    const editUser = '.ui.modal.edit-' + $(this).attr('data');
+    $(`${editUser}`).modal('show');
   });
 }
 </script>

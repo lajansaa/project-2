@@ -6,10 +6,12 @@ const newForm = (request, response) => {
 
 const create = (request, response) => {
   db.userDB.create(request.body, (error, queryResults) => {
-    if (queryResults.duplicate == false) {
-      response.cookie('token', queryResults.token);
+    if (queryResults.duplicate == true) {
+      response.render('error/duplicate-user');
+    } else {
+      // response.cookie('token', queryResults.token);
+      response.redirect('../../admin');
     }
-    response.redirect('/categories');
   })
 }
 
@@ -19,8 +21,10 @@ const loginForm = (request, response) => {
 
 const login = (request, response) => {
   db.userDB.login(request.body, (error, queryResults) => {
-    if (queryResults == false) {
+    if (queryResults.invalidCredentials == true) {
       response.render('error/invalid-credentials');
+    } else if (queryResults.userNotFound == true) {
+      response.render('error/user-not-found');
     } else {
       response.cookie('token', queryResults.token);
       response.redirect('/categories');
@@ -45,6 +49,12 @@ const remove = (request, response) => {
   })
 }
 
+const edit = (request, response) => {
+  db.userDB.edit(Object.assign(request.body, {id: request.params.id}), (error, queryResults) => {
+    response.redirect('../../admin');
+  })
+}
+
 module.exports = {
   newForm,
   create,
@@ -52,5 +62,6 @@ module.exports = {
   login,
   logout,
   favourite,
-  remove
+  remove,
+  edit
 }
