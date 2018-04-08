@@ -29,7 +29,7 @@ const editReport = (request, response) => {
                     user_id: request.decoded.id
                   }
   db.reportDB.get(payload, (error, queryResults) => {
-    response.render('report/edit', Object.assign({ user: request.decoded } ,queryResults));
+    response.render('report/edit', Object.assign({ user: request.decoded }, queryResults));
   })
 }
 
@@ -50,7 +50,7 @@ const newReport = (request, response) => {
 
 
 const createReport = (request, response) => {
-  db.reportDB.createReport(request.body, (error, queryResults) => {
+  db.reportDB.createReport(Object.assign(request.body, {id: request.decoded.id}), (error, queryResults) => {
     response.send(queryResults);
   });
 }

@@ -21,7 +21,7 @@ module.exports = (dbPool) => {
         dbPool.query(categoryQueryString, (err2, res2) => {
           const userQueryString = `SELECT
                                        U.id,
-                                       U.name
+                                       INITCAP(U.name) AS name
                                    FROM users U
                                    LEFT JOIN reports R ON U.id = R.user_id
                                                       AND R.id = ${payload.report_id}
@@ -33,7 +33,7 @@ module.exports = (dbPool) => {
                                           WHERE F.report_id = ${payload.report_id}
                                             AND F.user_id = ${payload.user_id}`;
             dbPool.query(favouriteQueryString, (err4, res4) => {
-              callback(err3, Object.assign(res.rows[0], { category: res2.rows, author: res3.rows, favourite: res4.rowCount==1 ? true : false }));
+              callback(err3, Object.assign(res.rows[0], { category: res2.rows, authors: res3.rows, favourite: res4.rowCount==1 ? true : false }));
             })
           })
         })
@@ -47,7 +47,7 @@ module.exports = (dbPool) => {
     },
 
     edit: (report, callback) => {
-      const queryString = `UPDATE reports SET title=$$${report.title}$$, description=$$${report.description}$$, query=$$${report.query}$$, category_id=${report.category_id} WHERE id=${report.id};`
+      const queryString = `UPDATE reports SET title=$$${report.title}$$, description=$$${report.description}$$, query=$$${report.query}$$, category_id=${report.category_id}, user_id=${report.author_id} WHERE id=${report.report_id};`
       dbPool.query(queryString, (err, res) => {
         callback(err, res);
       })
@@ -61,7 +61,7 @@ module.exports = (dbPool) => {
     },
 
     createReport: (report, callback) => {
-      const insertString = `INSERT INTO reports(title, description, query, category_id) VALUES ($$${report.title}$$, $$${report.description}$$, $$${report.query}$$, ${report.category_id}) RETURNING id`;
+      const insertString = `INSERT INTO reports(title, description, query, category_id, user_id) VALUES ($$${report.title}$$, $$${report.description}$$, $$${report.query}$$, ${report.category_id}, ${report.id}) RETURNING id`;
       dbPool.query(insertString, (err, res) => {
         callback(err, res.rows[0]);
       })

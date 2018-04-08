@@ -7,15 +7,15 @@
     <textarea rows="4" id="report-description">{{description}}</textarea>
   </div>
 </div>
-Category: <select class="ui dropdown">
+Category: <select class="ui dropdown category">
     <option value="{{category_id}}">{{category_title}}</option>
   {{#each category}}
     <option value="{{this.id}}">{{this.title}}</option>
   {{/each}}
 </select>
-Created By: <select class="ui dropdown">
+Created By: <select class="ui dropdown author-id">
     <option value="{{user_id}}">{{user_name}}</option>
-  {{#each user}}
+  {{#each authors}}
     <option value="{{this.id}}">{{this.name}}</option>
   {{/each}}
 </select>
@@ -37,10 +37,11 @@ Created By: <select class="ui dropdown">
       $.ajax({
         method: "PUT",
         url: "edit?_method=PUT",
-        data: { id: parseInt($("#report-id").html()),
+        data: { report_id: parseInt($("#report-id").html()),
                 title: $("#report-title").val(),
                 description: $("#report-description").val(),
-                category_id: $('.dropdown option:selected').val(),
+                category_id: $('.dropdown.category option:selected').val(),
+                author_id: $('.dropdown.author-id option:selected').val(),
                 query: editor.getValue()
               }
       }).done( () => {
