@@ -102,6 +102,20 @@ const favourite = (request, response) => {
   })
 }
 
+const preview = (request, response) => {
+  db.reportDB.getOutput(request.body.query, (error, queryResults) => {
+    if (error) {
+      response.send({ error: true, 
+                      errorMessage : error.message
+                    })
+    } else {
+      response.send({ error: false, 
+                      data: queryResults.rows
+                    })
+    }
+  })
+}
+
 
 module.exports = {
   getReport,
@@ -111,5 +125,6 @@ module.exports = {
   createReport,
   remove,
   downloadReport,
-  favourite
+  favourite,
+  preview
 }
