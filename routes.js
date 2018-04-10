@@ -10,6 +10,7 @@ module.exports = (app) => {
   app.post('/reports/:id/download', reports.downloadReport),
   app.get('/reports/new', reports.newReport),
   app.post('/reports/new', reports.createReport),
+  app.post('/reports/:id/notify-author', reports.notifyAuthor),
   app.delete('/reports/:id/delete', reports.remove),
   app.get('/reports/:id', reports.getReport),
   app.post('/reports/:id/preview', reports.preview),

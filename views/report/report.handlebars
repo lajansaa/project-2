@@ -10,6 +10,10 @@
 
 {{#if error}}
   <p class="error-message">{{errorMessage}}</p>
+  <div class="ui positive message hidden">
+    <p>Email has been sent!</p>
+  </div>
+  <button class="ui primary button notify-author">Notify Author</button>
 {{else}}
   <p>{{{tabulate data}}}</p>
 {{/if}}
@@ -20,9 +24,11 @@
 </form>
 {{/if}}
 
+{{#if (not error) }}
 <form method="POST" action="/reports/{{metadata.id}}/download">
   <button class="ui button">Download as Excel</button>
 </form>
+{{/if}}
 
 <script>
   window.onload = function() {
@@ -34,6 +40,15 @@
         url: window.location + "/favourite?_method=PUT",
         data: { rating: value }
       })
+    })
+    $('.notify-author').on('click', function(event) {
+        event.preventDefault();
+        $('.ui.positive.message').removeClass('hidden').addClass('visible');
+        $.ajax({
+          method: "POST",
+          url: window.location + "/notify-author",
+          data: { error: $('.error-message').html() }
+        })
     })
   }
 </script>

@@ -160,6 +160,21 @@ module.exports = (dbPool) => {
           })
         }
       })                             
+    },
+
+    getAuthorEmail: (report_id, callback) => {
+      const queryString = `SELECT
+                               U.email
+                           FROM reports R
+                           JOIN users U ON R.user_id = U.id
+                           WHERE R.id = ${report_id};`
+      dbPool.query(queryString, (err, results) => {
+        if (err) {
+          console.error(err);
+        } else {
+          callback(err, results.rows[0]);
+        }
+      })
     }
 
   }

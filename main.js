@@ -45,6 +45,13 @@ const handlebarsConfig = {
       } else {
         return false;
       }
+    },
+    not: (bool) => {
+      if (bool == false) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }

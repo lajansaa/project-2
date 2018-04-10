@@ -2,6 +2,8 @@
 const json2xls = require('json2xls');
 const fs = require('fs');
 const db = require('../db');
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
 
 const getReport = (request, response) => {
   const payload = { report_id: parseInt(request.params.id),
@@ -119,6 +121,39 @@ const preview = (request, response) => {
   })
 }
 
+const notifyAuthor = (request, response) => {
+  db.userDB.getAuthorEmail(request.params.id, (error, queryResults) => {
+    const transporter = nodemailer.createTransport(smtpTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.DEFAULT_EMAIL,
+        pass: process.env.DEFAULT_PASSWORD
+      }
+    }));
+
+    const mailOptions = {
+      subject: `Query Me | Report Error`,
+      to: queryResults.email,
+      from: `QueryMe <${process.env.DEFAULT_EMAIL}>`,
+      html: `
+        <p>Hi there,</p>
+        <p>An error has been reported by ${request.decoded.name} regarding the following report: </p>
+        <p>Report: <a>http://${request.headers.host}/reports/${request.params.id}</a></p>
+        <p>Error: ${request.body.error}</p>
+        <p>You might want to look into it whenever possible.</p>
+      `
+    }
+
+    transporter.sendMail(mailOptions, (error2, response2) => {
+      if (error2) {
+        // can't send out email
+        console.error(error2);
+      } else {
+        response.send('done');
+      }
+    }) 
+  })
+}
 
 module.exports = {
   getReport,
@@ -129,5 +164,6 @@ module.exports = {
   remove,
   downloadReport,
   favourite,
-  preview
+  preview,
+  notifyAuthor
 }
