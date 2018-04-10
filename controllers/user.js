@@ -10,10 +10,13 @@ const newForm = (request, response) => {
 const create = (request, response) => {
   db.userDB.create(request.body, (error, queryResults) => {
     if (queryResults.duplicate == true) {
-      response.render('error/duplicate-user');
+      response.send('duplicate');
     } else {
-      // response.cookie('token', queryResults.token);
-      response.redirect('../../admin');
+      if (request.decoded == undefined) {
+        response.send('new-user');
+      } else {
+        response.send('admin');
+      }
     }
   })
 }
@@ -54,7 +57,37 @@ const remove = (request, response) => {
 
 const edit = (request, response) => {
   db.userDB.edit(Object.assign(request.body, {id: request.params.id}), (error, queryResults) => {
-    response.redirect('../../admin');
+      if (request.body.sendEmail == 'y') {
+      const transporter = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.DEFAULT_EMAIL,
+          pass: process.env.DEFAULT_PASSWORD
+        }
+      }));
+
+      const mailOptions = {
+        subject: `Query Me | Request Approved`,
+        to: request.body.email,
+        from: `QueryMe <${process.env.DEFAULT_EMAIL}>`,
+        html: `
+          <p>Hi there,</p>
+          <p>Your request has been approved.</p>
+          <p>You may now log in with the credentials you previously requested access with.</p>
+        `
+      }
+
+      transporter.sendMail(mailOptions, (error2, response2) => {
+        if (error) {
+          // can't send out email
+          console.error(error);
+        } else {
+          response.redirect('../../admin');
+        }
+      }) 
+    } else {
+      response.redirect('../../admin');
+    }
   })
 }
 

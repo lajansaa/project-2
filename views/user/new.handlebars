@@ -1,16 +1,49 @@
-<form id="new-user" class="ui form" method="POST" action="/users/new">
+<form class="ui form"">
+  <h3 class="ui header">Request Access</h3>
+  <div class="ui positive message hidden">
+    <div class="header">Request Sent</div>
+    <p>An email will be sent to you when your request is approved.</p>
+  </div>
   <div class="field">
     <label>First Name</label>
-    <input type="text" name="name" placeholder="First Name" required>
+    <input type="text" id="name" placeholder="First Name" required>
   </div>
   <div class="field">
     <label>Work Email</label>
-    <input type="text" name="email" placeholder="Work Email" required>
+    <input type="text" id="email" placeholder="Work Email" required>
   </div>
-  <div class="ui error message" style="display:none"></div>
+  <div class="ui error message hidden">
+    <div class="header">
+      This user already exists
+    </div>
+    <p>Did you forget your password or requested for access before?</p>
+  </div>
   <div class="field">
     <label>Create Password</label>
-    <input type="password" name="password" placeholder="Create Password" required>
+    <input type="password" id="password" placeholder="Create Password" required>
   </div>
-  <button class="ui primary button" type="submit">Request Access</button>
+  <button class="ui primary button request-access" type="submit">Request Access</button>
 </form>
+
+<script>
+  window.onload = function() {
+    $('.request-access').on('click', function(event) {
+      event.preventDefault();
+      $.ajax({
+        method: "POST",
+        url: "/users/new",
+        data: { name: $('#name').val(),
+                email: $('#email').val(),
+                password: $('#password').val()
+              }
+      }).done(function(response) {
+        if (response == "duplicate") {
+          $('.ui.error.message').removeClass('hidden').addClass('visible');
+        } else if (response == "new-user") {
+          $('.ui.positive.message').removeClass('hidden').addClass('visible');
+          $('.ui.form').form('clear');
+        }
+      })
+    })
+  }
+</script>

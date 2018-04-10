@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
   role VARCHAR(20) NOT NULL DEFAULT 'business user',
   reset_password_token VARCHAR,
   reset_password_expires BIGINT,
+  approved BOOLEAN DEFAULT false,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (dbPool) => {
   return {
     create: (user, callback) => {
+      console.log(user);
       const checkDuplicate = `SELECT * FROM users WHERE email = '${user.email}';`
       dbPool.query(checkDuplicate, (err, results) => {
         if (results.rowCount > 0) {
@@ -12,17 +13,11 @@ module.exports = (dbPool) => {
           bcrypt.hash(user.password, 1, (err2, hashedPassword) => {
             const queryString = `INSERT INTO users (name, email, password) VALUES ('${user.name}', '${user.email}', '${hashedPassword}') RETURNING name, role;`;
             dbPool.query(queryString, (err3, results3) => {
-              let token = jwt.sign({ id: results3.rows[0].id,
-                                     name: results3.rows[0].name,
-                                     role: results3.rows[0].role,
-                                     loggedIn: true },
-                                   process.env.TOKEN_KEY,
-                                   { expiresIn: 86400 }
-                                  );
-              callback(err3, { duplicate: false,
-                               loggedIn: true,
-                               token: token
-                             });
+              if (err3) {
+                console.error(err3);
+              } else {
+                callback(err3, { duplicate: false});
+              }
             })
           })
         }
@@ -30,7 +25,7 @@ module.exports = (dbPool) => {
     },
 
     login: (user, callback) => {
-      const queryString = `SELECT id, name, password, role FROM users WHERE email='${user.email}';`;
+      const queryString = `SELECT id, name, password, role FROM users WHERE email='${user.email}' AND approved;`;
       dbPool.query(queryString, (err, results) => {
         if (err) {
           console.error(err);
@@ -95,7 +90,7 @@ module.exports = (dbPool) => {
 
     edit: (user, callback) => {
       bcrypt.hash(user.password, 1, (err2, hashedPassword) => {
-        const updateString = `UPDATE users SET name='${user.name}', email='${user.email}', password='${hashedPassword}', role='${user.role}' WHERE id = ${user.id};`;
+        const updateString = `UPDATE users SET name='${user.name}', email='${user.email}', password='${hashedPassword}', role='${user.role}', approved=true WHERE id = ${user.id};`;
         dbPool.query(updateString, (err, results) => {
           if (err) {
               console.error(err);
