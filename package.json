@@ -16,6 +16,8 @@
     "json2xls": "^0.1.2",
     "jsonwebtoken": "^8.2.1",
     "method-override": "^2.3.10",
+    "nodemailer": "^4.6.4",
+    "nodemailer-smtp-transport": "^2.7.4",
     "pg": "^7.4.1",
     "semantic-ui": "^2.3.1",
     "underscore": "^1.8.3"

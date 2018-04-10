@@ -61,9 +61,8 @@ app.all('*', authenticateUser);
 
 function authenticateUser(request, response, next) {
   let _ = require('underscore')
-  let ignorePaths = ['/', '/users/new', '/users/login', '/users/logout'];
-
-  if ( _.contains(ignorePaths, request.path)) {
+  let ignorePaths = ['/', '/users/new', '/users/login', '/users/logout', '/users/forgot-password'];
+  if ( _.contains(ignorePaths, request.path) || request.path.substring(0,12) == '/users/reset') {
     return next(); 
   } else {
     let token = request.cookies["token"];

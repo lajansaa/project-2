@@ -18,13 +18,17 @@ module.exports = (app) => {
   app.put('/reports/:id/favourite', reports.favourite),
 
   app.get('/users/new', users.newForm),
+  app.get('/users/forgot-password', users.forgotPasswordForm),
+  app.post('/users/forgot-password', users.forgotPassword),
+  app.get('/users/reset/:token', users.resetForm),
+  app.put('/users/reset/:token', users.reset),
   app.post('/users/new', users.create),
   app.post('/users/login', users.login),
   app.post('/users/logout', users.logout),
   app.get('/users/login', users.loginForm),
   app.get('/users/favourite', users.favourite),
-  app.delete('/users/:id/delete', users.remove),
   app.put('/users/:id/edit', users.edit),
+  app.delete('/users/:id/delete', users.remove),
 
   app.get('/admin', admins.getControlPanel)
 }

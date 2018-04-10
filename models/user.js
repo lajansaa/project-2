@@ -104,6 +104,62 @@ module.exports = (dbPool) => {
           }
         })
       })
+    },
+
+    findUser: (email, callback) => {
+      const queryString = `SELECT id, email FROM users WHERE email='${email}';`;
+      dbPool.query(queryString, (err, results) => {
+        if (results.rowCount == 0) {
+          callback(err, { found: false })
+        } else {
+          callback(err, { found: true, user_id: results.rows[0].id })
+        }
+      })
+    },
+
+    setTempPassword: (payload, callback) => {
+      const updateString = `UPDATE users SET reset_password_token='${payload.reset_password_token}', reset_password_expires='${payload.reset_password_expires}' WHERE id=${payload.id};`;
+      dbPool.query(updateString, (err, results) => {
+        if (err) {
+          console.error(err);
+        } else {
+          callback(err, results);
+        }
+      })
+    },
+
+    reset: (payload, callback) => {
+      const now = new Date().getTime();
+      const queryString = `SELECT
+                               id
+                           FROM users
+                           WHERE reset_password_token = '${payload.reset_password_token}'
+                             AND ${now} < reset_password_expires;`
+      dbPool.query(queryString, (err, results) => {
+        if (err) {
+          console.error(err);
+        } else if (results.rowCount == 0) {
+          callback(err, { invalidToken: true });
+        } else {
+          bcrypt.hash(payload.password, 1, (err2, hashedPassword) => {
+            const updateString = `UPDATE users SET password='${hashedPassword}' WHERE id=${results.rows[0].id};`
+            dbPool.query(updateString, (err3, results3) => {
+              if (err3) {
+                console.error(err3);
+              } else {
+                const setNullString = `UPDATE users SET reset_password_token=NULL, reset_password_expires=NULL WHERE id=${results.rows[0].id};`
+                dbPool.query(setNullString, (err4, results4) => {
+                  if (err4) {
+                    console.error(err4);
+                  } else {
+                    callback(err3, { updateSuccess: true })
+                  }
+                })
+              }
+            })
+          })
+        }
+      })                             
     }
 
   }
