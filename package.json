@@ -22,5 +22,8 @@
     "semantic-ui": "^2.3.1",
     "underscore": "^1.8.3",
     "xss": "^0.3.7"
+  },
+  "scripts": {
+    "start": "node main.js"
   }
 }
