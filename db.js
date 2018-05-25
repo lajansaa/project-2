@@ -4,12 +4,19 @@ const report = require('./models/report');
 const user = require('./models/user');
 const admin = require('./models/admin');
 
-const configs = {
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  port: process.env.DB_PORT
-};
+if (process.env.NODE_ENV == 'development') {
+  const configs = {
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    port: process.env.DB_PORT
+  };
+} else {
+  configs = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
+  };
+}
 
 const pool = new pg.Pool(configs);
 
