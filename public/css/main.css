@@ -110,6 +110,22 @@ form {
   font-style: italic;
 }
 
+.category, .fa-file {
+  margin-top: 20px;
+}
+
+.fa-cog, .fa-folder-open, .fa-file, .fa-user {
+  margin-right: 5px;
+}
+
+.authentication-wrapper {
+  text-align: center;
+}
+
+.ui.form {
+  text-align: left;
+}
+
 h2 {
   display: inline;
   margin-right: 10px; 

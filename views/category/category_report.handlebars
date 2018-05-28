@@ -4,28 +4,12 @@
   <div>
     <i class="fas fa-file"></i>
     <a href="/reports/{{this.id}}">{{this.title}}</a>
-    <div class="ui icon top left pointing dropdown button">
-      <i class="wrench icon"></i>
-      <div class="menu">
-        <div class="item"><a href="/reports/{{this.id}}/edit">Edit Report</a></div>
-        <div id="report-delete" data="{{this.id}}" class="item">Delete Report</div>
-      </div>
-    </div>
   </div>
   {{/each}}
 </div>
 
 <script>
-window.onload = function() {
-  $('.ui.dropdown').dropdown();
-  $("#report-delete").on('click', () => {
-    const reportId = parseInt($("#report-delete").attr("data"));
-    $.ajax({
-      method: "DELETE",
-      url: `/reports/${reportId}/delete?_method=DELETE`
-    }).done( (response) => {
-        window.location = '/categories/' + response.category_id;
-    });
-  })
-}
-</script>
+  window.onload = function() {
+    $('.ui.dropdown').dropdown();
+  }
+</script>  
