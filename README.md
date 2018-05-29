@@ -19,7 +19,7 @@ Postgres, Handlebars (Semantic UI), Express.js, Node.js
 
 _ERD_:\
 MetaData DB:\
-![MetaData DB](https://i.imgur.com/MNBfz3Q.png)
+![MetaData DB](https://i.imgur.com/AitDlXC.png)
 
 Actual DB:\
 ![Actual DB](https://i.imgur.com/04fCgjZ.png)
@@ -31,16 +31,16 @@ __Business Role__\
 _Able to:_
 - View Reports
 - Download Reports as Excel
-- Favourite Reports
-__email__: business_test@mail.com
+- Favourite Reports\
+__email__: business_test@mail.com\
 __password__: 123
 
 __Admin Role__\
 _Able to:_
 - ^ All of what a business role can do
 - CRUD Reports
-- CRUD Users
-__email__: admin_test@mail.com
+- CRUD Users\
+__email__: admin_test@mail.com\
 __password__: 123
 
 1) Log in with admin role credentials.
