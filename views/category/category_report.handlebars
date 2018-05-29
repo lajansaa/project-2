@@ -21,14 +21,14 @@
 <script>
 window.onload = function() {
   $('.ui.dropdown').dropdown();
-  $("#wrench-settings div.report-delete").click(function() {
-    const reportId = parseInt($(this).attr("data"));
-    $.ajax({
-      method: "DELETE",
-      url: `/reports/${reportId}/delete?_method=DELETE`
-    }).done( (response) => {
-        window.location = '/categories/' + response.category_id;
-    });
-  })
+  // $("#wrench-settings div.report-delete").click(function() {
+  //   const reportId = parseInt($(this).attr("data"));
+  //   $.ajax({
+  //     method: "DELETE",
+  //     url: `/reports/${reportId}/delete?_method=DELETE`
+  //   }).done( (response) => {
+  //       window.location = '/categories/' + response.category_id;
+  //   });
+  // })
 }
 </script>
