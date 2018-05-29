@@ -57,13 +57,13 @@ header {
   outline: none;
 }
 
-.link {
-  margin-bottom: 10px;
-}
-
 .fa-cog, .user-name, .dropdown.icon {
   color: #FFF;
   text-transform: capitalize;
+}
+
+.wrench {
+  color: black;
 }
 
 form {

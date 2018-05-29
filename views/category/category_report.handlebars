@@ -1,7 +1,14 @@
 <div class="ui header">Reports</div>
-<div>
+<div id="wrench-settings">
   {{#each category_report}}
   <div class="link">
+    <div class="ui icon top left pointing dropdown">
+      <i class="wrench icon"></i>
+      <div class="menu">
+        <div class="item"><a href="/reports/{{this.id}}/edit">Edit Report</a></div>
+        <div class="item report-delete" data="{{this.id}}">Delete Report</div>
+      </div>
+    </div>
     <i class="fas fa-file"></i>
     <a href="/reports/{{this.id}}">{{this.title}}</a>
   </div>
@@ -12,7 +19,16 @@
 </form>
 
 <script>
-  window.onload = function() {
-    $('.ui.dropdown').dropdown();
-  }
-</script>  
+window.onload = function() {
+  $('.ui.dropdown').dropdown();
+  $("#wrench-settings div.report-delete").click(function() {
+    const reportId = parseInt($(this).attr("data"));
+    $.ajax({
+      method: "DELETE",
+      url: `/reports/${reportId}/delete?_method=DELETE`
+    }).done( (response) => {
+        window.location = '/categories/' + response.category_id;
+    });
+  })
+}
+</script>
