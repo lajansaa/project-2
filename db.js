@@ -12,7 +12,7 @@ if (process.env.NODE_ENV == 'production') {
     ssl: true
   };
   queryConfigs = {
-    connectionString: process.env.HEROKU_POSTGRESQL_COBALT_URL,
+    connectionString: process.env.HEROKU_POSTGRESQL_PUCE_URL,
     ssl: true
   };
 } else {
