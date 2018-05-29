@@ -1,12 +1,15 @@
-<a href="/categories"><i class="fas fa-arrow-left"></i></a>
+<div class="ui header">Reports</div>
 <div>
   {{#each category_report}}
-  <div>
+  <div class="link">
     <i class="fas fa-file"></i>
     <a href="/reports/{{this.id}}">{{this.title}}</a>
   </div>
   {{/each}}
 </div>
+<form method="GET" action="/categories" class="link">
+  <button class="ui primary button" type="submit">Back</button>
+</form>
 
 <script>
   window.onload = function() {

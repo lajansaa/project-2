@@ -1,47 +1,53 @@
 const pg = require('pg');
 const category = require('./models/category');
 const report = require('./models/report');
+const reportResults = require('./models/report');
 const user = require('./models/user');
 const admin = require('./models/admin');
-let configs;
+let dbConfigs, queryConfigs;
 
 if (process.env.NODE_ENV == 'production') {
-  configs = {
+  dbConfigs = {
     connectionString: process.env.DATABASE_URL,
     ssl: true
   };
+  queryConfigs = {
+    connectionString: process.env.HEROKU_POSTGRESQL_COBALT_URL,
+    ssl: true
+  };
 } else {
-  configs = {
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT
+  dbConfigs = {
+    user: process.env.METADATA_DB_USER,
+    host: process.env.METADATA_DB_HOST,
+    database: process.env.METADATA_DB_DATABASE,
+    port: process.env.METADATA_DB_PORT
+  };
+  queryConfigs = {
+    user: process.env.QUERY_DB_USER,
+    host: process.env.QUERY_DB_HOST,
+    database: process.env.QUERY_DB_DATABASE,
+    port: process.env.QUERY_DB_PORT
   };
 }
 
-const pool = new pg.Pool(configs);
+const dbPool = new pg.Pool(dbConfigs);
+const queryPool = new pg.Pool(queryConfigs);
 
-pool.on('error', function (err) {
+
+dbPool.on('error', function (err) {
+  console.log('idle client error', err.message, err.stack);
+});
+
+queryPool.on('error', function (err) {
   console.log('idle client error', err.message, err.stack);
 });
 
 module.exports = {
-  categoryDB: category(pool),
-  reportDB: report(pool),
-  userDB: user(pool),
-  adminDB: admin(pool)
-
-  // ,
-  // singleQuery: async function(queryObj) {
-  //   try {
-  //     let result = await pool.query(queryObj);
-  //     return result.rows;
-  //   } catch (error) {
-  //     console.error(error.stack);
-  //   } finally {
-  //     client.release();
-  //   }    
-  // }
+  categoryDB: category(dbPool),
+  reportDB: report(dbPool),
+  reportResultsDB: reportResults(queryPool),
+  userDB: user(dbPool),
+  adminDB: admin(dbPool)
 }
 
 

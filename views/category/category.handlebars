@@ -1,10 +1,11 @@
+<div class="ui header">Categories</div>
 <form method="GET" action="/reports/new">
   <button class="ui primary button" type="submit">New Report</button>
 </form>
 
 <div>
   {{#each category}}
-  <div class="category">
+  <div class="link">
     <i class="fas fa-folder-open"></i>
     <a href="/categories/{{this.id}}">{{this.title}}</a>
   </div>
