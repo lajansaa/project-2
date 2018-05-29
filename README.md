@@ -31,7 +31,8 @@ __Business Role__\
 _Able to:_
 - View Reports
 - Download Reports as Excel
-- Favourite Reports\
+- Favourite Reports
+
 __email__: business_test@mail.com\
 __password__: 123
 
@@ -39,7 +40,8 @@ __Admin Role__\
 _Able to:_
 - ^ All of what a business role can do
 - CRUD Reports
-- CRUD Users\
+- CRUD Users
+
 __email__: admin_test@mail.com\
 __password__: 123
 
