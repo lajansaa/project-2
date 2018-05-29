@@ -21,7 +21,7 @@ const handlebarsConfig = {
   defaultLayout: 'main',
   helpers: {
     tabulate: (data) => {
-      let str = '<table class="ui striped celled table">';
+      let str = '<table class="ui striped celled table unstackable">';
       
       str += '<thead><tr>';
       for (let key in data[0]) {
@@ -90,7 +90,7 @@ function authenticateUser(request, response, next) {
 
 // home page
 app.get('/', (request, response) => {
-  response.redirect('/categories');
+  response.redirect('/users/login');
 })
 
 // import routes

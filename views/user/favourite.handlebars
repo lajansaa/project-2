@@ -1,3 +1,4 @@
+<div class="ui header">Favourites</div>
 <div>
   {{#if (equate count 0)}}
     <div class="ui info message">
@@ -5,7 +6,7 @@
     </div>
   {{else}}
     {{#each results}}
-    <div>
+    <div class="link">
       <i class="fas fa-file"></i>
       <a href="/reports/{{this.report_id}}">{{this.title}}</a>
     </div>

@@ -1,31 +1,34 @@
-<a href="/categories"><i class="fas fa-arrow-left"></i></a>
-<div>
+<div class="ui header">Reports</div>
+<div id="wrench-settings">
   {{#each category_report}}
-  <div>
-    <i class="fas fa-file"></i>
-    <a href="/reports/{{this.id}}">{{this.title}}</a>
-    <div class="ui icon top left pointing dropdown button">
+  <div class="link">
+    <div class="ui icon top left pointing dropdown">
       <i class="wrench icon"></i>
       <div class="menu">
         <div class="item"><a href="/reports/{{this.id}}/edit">Edit Report</a></div>
-        <div id="report-delete" data="{{this.id}}" class="item">Delete Report</div>
+        <div class="item report-delete" data="{{this.id}}">Delete Report</div>
       </div>
     </div>
+    <i class="fas fa-file"></i>
+    <a href="/reports/{{this.id}}">{{this.title}}</a>
   </div>
   {{/each}}
 </div>
+<form method="GET" action="/categories" class="link">
+  <button class="ui primary button" type="submit">Back</button>
+</form>
 
 <script>
 window.onload = function() {
   $('.ui.dropdown').dropdown();
-  $("#report-delete").on('click', () => {
-    const reportId = parseInt($("#report-delete").attr("data"));
-    $.ajax({
-      method: "DELETE",
-      url: `/reports/${reportId}/delete?_method=DELETE`
-    }).done( (response) => {
-        window.location = '/categories/' + response.category_id;
-    });
-  })
+  // $("#wrench-settings div.report-delete").click(function() {
+  //   const reportId = parseInt($(this).attr("data"));
+  //   $.ajax({
+  //     method: "DELETE",
+  //     url: `/reports/${reportId}/delete?_method=DELETE`
+  //   }).done( (response) => {
+  //       window.location = '/categories/' + response.category_id;
+  //   });
+  // })
 }
 </script>

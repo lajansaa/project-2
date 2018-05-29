@@ -57,13 +57,13 @@ header {
   outline: none;
 }
 
-.link {
-  margin-bottom: 10px;
-}
-
 .fa-cog, .user-name, .dropdown.icon {
   color: #FFF;
   text-transform: capitalize;
+}
+
+.wrench {
+  color: black;
 }
 
 form {
@@ -93,6 +93,10 @@ form {
   margin-bottom: 10px;
 }
 
+.login-button, .request-access {
+  margin-top: 20px !important;
+}
+
 .right.menu a.item {
   color: #FFF !important;
 }
@@ -108,6 +112,22 @@ form {
   padding: 15px;
   border-radius: 5px;
   font-style: italic;
+}
+
+.link {
+  margin-top: 20px;
+}
+
+.fa-cog, .fa-folder-open, .fa-file, .fa-user {
+  margin-right: 5px;
+}
+
+.authentication-wrapper {
+  text-align: center;
+}
+
+.ui.form {
+  text-align: left;
 }
 
 h2 {

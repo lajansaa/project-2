@@ -29,7 +29,11 @@ Created By: <select class="ui dropdown author-id">
   <p></p>
 </div>
 
-<button id="report-save" class="ui primary button" type="submit">Save</button>
+<!-- <button id="report-save" class="ui primary button" type="submit">Save</button> -->
+<form method="GET" action="/reports/{{id}}">
+  <button class="ui primary button" type="submit">Save</button>
+</form>
+
 <form method="GET" action="/reports/{{id}}">
   <button class="ui button" type="submit">Cancel</button>
 </form>

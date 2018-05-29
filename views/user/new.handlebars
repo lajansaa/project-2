@@ -29,21 +29,21 @@
   window.onload = function() {
     $('.request-access').on('click', function(event) {
       event.preventDefault();
-      $.ajax({
-        method: "POST",
-        url: "/users/new",
-        data: { name: $('#name').val(),
-                email: $('#email').val(),
-                password: $('#password').val()
-              }
-      }).done(function(response) {
-        if (response == "duplicate") {
-          $('.ui.error.message').removeClass('hidden').addClass('visible');
-        } else if (response == "new-user") {
-          $('.ui.positive.message').removeClass('hidden').addClass('visible');
-          $('.ui.form').form('clear');
-        }
-      })
+      // $.ajax({
+      //   method: "POST",
+      //   url: "/users/new",
+      //   data: { name: $('#name').val(),
+      //           email: $('#email').val(),
+      //           password: $('#password').val()
+      //         }
+      // }).done(function(response) {
+      //   if (response == "duplicate") {
+      //     $('.ui.error.message').removeClass('hidden').addClass('visible');
+      //   } else if (response == "new-user") {
+      //     $('.ui.positive.message').removeClass('hidden').addClass('visible');
+      //     $('.ui.form').form('clear');
+      //   }
+      // })
     })
   }
 </script>

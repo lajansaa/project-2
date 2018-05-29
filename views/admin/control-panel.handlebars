@@ -1,7 +1,8 @@
+<div class="ui header">Control Panel</div>
 <div class="ui secondary pointing menu">
   <a class="active item" href="/admin/control-panel">Users</a>
   <div class="ui middle aligned divided list"></div>
-  <a class="item" href="/admin/requests">Requests ({{numReq}})</a>
+  <a class="item" href="/admin/requests">Requests</a>
   <a class="item">Data Sources</a>
 </div>
 
@@ -104,18 +105,18 @@
 window.onload = function() {
   $('.ui.dropdown').dropdown();
 
-  $('.add-user-button').on('click', function() {
-    $('.ui.modal.add-user').modal('show');
-  });
+  // $('.add-user-button').on('click', function() {
+  //   $('.ui.modal.add-user').modal('show');
+  // });
 
-  $('.delete-user-button').on('click', function() {
-    const deleteUser = '.ui.modal.delete-' + $(this).attr('data');
-    $(`${deleteUser}`).modal('show');
-  });
+  // $('.delete-user-button').on('click', function() {
+  //   const deleteUser = '.ui.modal.delete-' + $(this).attr('data');
+  //   $(`${deleteUser}`).modal('show');
+  // });
 
-  $('.edit-user-button').on('click', function() {
-    const editUser = '.ui.modal.edit-' + $(this).attr('data');
-    $(`${editUser}`).modal('show');
-  });
+  // $('.edit-user-button').on('click', function() {
+  //   const editUser = '.ui.modal.edit-' + $(this).attr('data');
+  //   $(`${editUser}`).modal('show');
+  // });
 }
 </script>

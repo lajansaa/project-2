@@ -10,7 +10,7 @@ const getReport = (request, response) => {
                     user_id: request.decoded.id
                   }
     db.reportDB.get(payload, (error, queryResults) => {
-    db.reportDB.getOutput(queryResults.query, (error2, queryResults2) => {
+    db.reportResultsDB.getOutput(queryResults.query, (error2, queryResults2) => {
       if (error2) {
         response.render('report/report', { user: request.decoded,
                                            metadata: queryResults,
@@ -70,7 +70,7 @@ const downloadReport = (request, response) => {
                     user_id: request.decoded.id
                   }
   db.reportDB.get(payload, (error, queryResults) => {
-    db.reportDB.getOutput(queryResults.query, (error2, queryResults2) => {
+    db.reportResultsDB.getOutput(queryResults.query, (error2, queryResults2) => {
       if (error2) {
         response.render('report/report', { user: request.decoded,
                                            metadata: queryResults,
@@ -108,7 +108,7 @@ const favourite = (request, response) => {
 }
 
 const preview = (request, response) => {
-  db.reportDB.getOutput(request.body.query, (error, queryResults) => {
+  db.reportResultsDB.getOutput(request.body.query, (error, queryResults) => {
     if (error) {
       response.send({ error: true, 
                       errorMessage : error.message
