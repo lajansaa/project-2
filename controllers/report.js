@@ -80,12 +80,14 @@ const downloadReport = (request, response) => {
       } else {
         const xls = json2xls(queryResults2.rows);
         const fileName = queryResults.title.replace(/\s/g, '-') + '.xlsx';
-        fs.writeFileSync(path.resolve('public/exports/' + fileName), xls, 'binary');
-        response.download(path.resolve('public/exports/' + fileName), fileName, (err) => {
+        const filePath = path.join(__dirname, '..', 'public', 'exports', fileName);
+        console.log("filePath", filePath);
+        fs.writeFileSync(filePath, xls, 'binary');
+        response.download(filePath, fileName, (err) => {
           if (err) {
             console.error(err);
           } else {
-            fs.unlinkSync(path.resolve('public/exports/' + fileName));
+            fs.unlinkSync(filePath);
           }
         });
       }
