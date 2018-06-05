@@ -1,5 +1,6 @@
 // downloading of output results
 const json2xls = require('json2xls');
+const path = require('path');
 const fs = require('fs');
 const db = require('../db');
 const nodemailer = require('nodemailer');
@@ -79,12 +80,12 @@ const downloadReport = (request, response) => {
       } else {
         const xls = json2xls(queryResults2.rows);
         const fileName = queryResults.title.replace(/\s/g, '-') + '.xlsx';
-        fs.writeFileSync('./public/exports/' + fileName, xls, 'binary');
-        response.download('./public/exports/' + fileName, fileName, (err) => {
+        fs.writeFileSync(path.resolve('public/exports/' + fileName), xls, 'binary');
+        response.download(path.resolve('public/exports/' + fileName), fileName, (err) => {
           if (err) {
             console.error(err);
           } else {
-            fs.unlinkSync('./public/exports/' + fileName);
+            fs.unlinkSync(path.resolve('public/exports/' + fileName));
           }
         });
       }
