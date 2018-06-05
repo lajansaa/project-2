@@ -81,7 +81,6 @@ const downloadReport = (request, response) => {
         const xls = json2xls(queryResults2.rows);
         const fileName = queryResults.title.replace(/\s/g, '-') + '.xlsx';
         const filePath = path.join(__dirname, '..', 'public', 'exports', fileName);
-        console.log("filePath", filePath);
         fs.writeFileSync(filePath, xls, 'binary');
         response.download(filePath, fileName, (err) => {
           if (err) {
